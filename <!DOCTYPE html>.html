@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Ngọc Mai | Pikachu Neon Challenge</title>
+    <!-- Google Fonts for premium retro-futuristic arcade design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ea;
+            --neon-blue: #00d2ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #ffd700;
+            --dark-bg: #07050f;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #140d2b 0%, var(--dark-bg) 100%);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .header-name {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-pink));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            margin: 5px 0 0 0;
+            color: #888;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Difficulty Tabs Selector */
+        .difficulty-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .tab-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: 2px solid transparent;
+            color: #888;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .tab-btn:hover {
+            color: white;
+        }
+
+        .tab-btn.active {
+            font-weight: 800;
+        }
+
+        .tab-btn.active:nth-child(1) {
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+            background: rgba(0, 210, 255, 0.08);
+        }
+
+        .tab-btn.active:nth-child(2) {
+            color: var(--neon-yellow);
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.08);
+        }
+
+        .tab-btn.active:nth-child(3) {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 234, 0.3);
+            background: rgba(255, 0, 234, 0.08);
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 20px;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        .stat-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 10px 8px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #8a8895;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 1.15rem;
+            font-weight: 800;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .neon-blue-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+        }
+
+        .neon-pink-text {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px rgba(255, 0, 234, 0.6);
+        }
+
+        .neon-green-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+        }
+
+        .neon-yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .warning-text {
+            color: #ff3300 !important;
+            text-shadow: 0 0 10px #ff3300 !important;
+            animation: blinkText 0.5s infinite alternate;
+        }
+
+        @keyframes blinkText {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+
+        /* Timer Bar */
+        .timer-bar-container {
+            width: calc(100% - 30px);
+            max-width: 450px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            box-shadow: 0 0 10px var(--neon-pink);
+            transition: width 0.1s linear, background-color 0.5s;
+            border-radius: 10px;
+        }
+
+        .timer-bar.warning {
+            background: linear-gradient(90deg, #ffcc00, #ff3300);
+            box-shadow: 0 0 12px #ff3300;
+            animation: pulseGlow 0.8s infinite alternate;
+        }
+
+        .timer-bar.flash-penalty {
+            background: #ff0000 !important;
+            box-shadow: 0 0 25px #ff0000 !important;
+            transition: none !important;
+            width: inherit;
+        }
+
+        @keyframes pulseGlow {
+            from {
+                opacity: 0.7;
+            }
+            to {
+                opacity: 1;
+                box-shadow: 0 0 18px #ff3300;
+            }
+        }
+
+        /* Game Board */
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-gap: 8px;
+            padding: 20px;
+            background: rgba(10, 8, 20, 0.4);
+            border-radius: 20px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.15), inset 0 0 20px rgba(0, 210, 255, 0.05);
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: border-color 0.5s, box-shadow 0.5s;
+        }
+
+        #game-board.hard-mode {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 35px rgba(255, 0, 234, 0.15), inset 0 0 20px rgba(255, 0, 234, 0.05);
+        }
+
+        #game-board.medium-mode {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.15), inset 0 0 20px rgba(255, 215, 0, 0.05);
+        }
+
+        /* 3D Card Flipping Styles */
+        .card-container {
+            width: 50px;
+            height: 60px;
+            perspective: 800px;
+            user-select: none;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Card face-down (front) design */
+        .card-front {
+            background: #110e22;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            font-size: 20px;
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(255, 0, 234, 0.4);
+            box-shadow: inset 0 0 10px rgba(255, 0, 234, 0.15);
+        }
+
+        /* Card face-up (back) design */
+        .card-back {
+            background: #0f182c;
+            border: 2px solid var(--neon-blue);
+            font-size: 26px;
+            transform: rotateY(180deg);
+            box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.15);
+        }
+
+        /* Selected state: glowing border */
+        .card.selected {
+            box-shadow: 0 0 15px var(--neon-blue);
+            animation: blinkSelect 0.6s infinite alternate;
+        }
+
+        @keyframes blinkSelect {
+            from { border-color: var(--neon-blue); }
+            to { border-color: white; }
+        }
+
+        /* Easy mode styles or face-up styling */
+        .card-container.easy-mode .card {
+            transform: rotateY(180deg);
+        }
+
+        .card-container.easy-mode .card-back {
+            border-color: var(--neon-blue);
+        }
+
+        .card-container.easy-mode .card.selected {
+            box-shadow: 0 0 15px var(--neon-pink);
+            animation: blinkSelectEasy 0.6s infinite alternate;
+        }
+
+        @keyframes blinkSelectEasy {
+            from { border-color: var(--neon-pink); }
+            to { border-color: white; }
+        }
+
+        /* Hover effects */
+        .card-container:hover .card {
+            transform: scale(1.06);
+        }
+
+        .card-container:not(.easy-mode):hover .card:not(.flipped) {
+            box-shadow: 0 0 12px var(--neon-pink);
+        }
+
+        .card-container.easy-mode:hover .card {
+            box-shadow: 0 0 12px var(--neon-blue);
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Spacer style */
+        .card-spacer {
+            width: 50px;
+            height: 60px;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Matched animation (fade out and shrink) */
+        @keyframes fadeOutShrink {
+            0% {
+                opacity: 1;
+                transform: rotateY(180deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: rotateY(180deg) scale(0.3);
+            }
+        }
+
+        .matched-animation {
+            animation: fadeOutShrink 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+            pointer-events: none;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        button.action-btn {
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px rgba(255, 0, 234, 0.1);
+        }
+
+        button.action-btn:hover:not(:disabled) {
+            background: var(--neon-pink);
+            color: white;
+            box-shadow: 0 0 20px var(--neon-pink);
+            transform: translateY(-2px);
+        }
+
+        button.action-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button.action-btn.secondary {
+            border-color: var(--neon-yellow);
+            color: var(--neon-yellow);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+
+        button.action-btn.secondary:hover:not(:disabled) {
+            background: var(--neon-yellow);
+            color: #0c0a00;
+            box-shadow: 0 0 20px var(--neon-yellow);
+        }
+
+        button.action-btn:disabled {
+            border-color: #444;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .instructions-text {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #6a6875;
+            max-width: 400px;
+            line-height: 1.4;
+        }
+
+        /* Modal Overlay & Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #0f0d1d;
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            padding: 35px 30px;
+            text-align: center;
+            max-width: 380px;
+            width: 85%;
+            box-shadow: 0 0 40px rgba(0, 210, 255, 0.25), inset 0 0 20px rgba(0, 210, 255, 0.05);
+            transform: scale(0.8);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h2 {
+            font-size: 2.3rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .modal-content.win h2 {
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .modal-content.lose h2 {
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        .modal-content.lose {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 40px rgba(255, 0, 234, 0.25), inset 0 0 20px rgba(255, 0, 234, 0.05);
+        }
+
+        .modal-message {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-stats {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-stat {
+            font-size: 0.95rem;
+            color: #8e8b9a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-stat span {
+            font-weight: 700;
+        }
+
+        .modal-btn {
+            padding: 12px 35px;
+            font-size: 0.95rem;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .modal-content.win .modal-btn {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .modal-content.win .modal-btn:hover {
+            background: var(--neon-blue);
+            color: #0f0d1d;
+            box-shadow: 0 0 25px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .modal-content.lose .modal-btn {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        .modal-content.lose .modal-btn:hover {
+            background: var(--neon-pink);
+            color: white;
+            box-shadow: 0 0 25px var(--neon-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 520px) {
+            .header-name {
+                font-size: 2.2rem;
+            }
+            .subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+            #game-board {
+                grid-template-columns: repeat(8, 40px);
+                grid-gap: 6px;
+                padding: 12px;
+            }
+            .card-container, .card-spacer {
+                width: 40px;
+                height: 50px;
+            }
+            .card-front {
+                font-size: 16px;
+            }
+            .card-back {
+                font-size: 20px;
+            }
+            .stats-panel {
+                gap: 8px;
+                padding: 0 10px;
+            }
+            .stat-box {
+                padding: 6px 4px;
+            }
+            .stat-value {
+                font-size: 0.95rem;
+            }
+            .stat-label {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header-name {
+                font-size: 1.8rem;
+            }
+            #game-board {
+                grid-template-columns: repeat(8, 32px);
+                grid-gap: 5px;
+                padding: 8px;
+            }
+            .card-container, .card-spacer {
+                width: 32px;
+                height: 42px;
+            }
+            .card-front {
+                font-size: 13px;
+                border-width: 1.5px;
+            }
+            .card-back {
+                font-size: 16px;
+                border-width: 1.5px;
+            }
+            .tab-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            button.action-btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-container">
+        <h1 class="header-name">Nguyễn Ngọc Mai</h1>
+        <p class="subtitle">Pikachu Blink Blink Version ✨</p>
+    </div>
+
+    <!-- Difficulty Selectors -->
+    <div class="difficulty-tabs">
+        <button class="tab-btn active" onclick="changeDifficulty('easy')">Dễ</button>
+        <button class="tab-btn" onclick="changeDifficulty('medium')">Trung Bình</button>
+        <button class="tab-btn" onclick="changeDifficulty('hard')">Khó</button>
+    </div>
+
+    <!-- Stats Display -->
+    <div class="stats-panel">
+        <div class="stat-box">
+            <span class="stat-label">Cấp Độ</span>
+            <span id="diff-label" class="stat-value neon-blue-text">Dễ</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Thời Gian</span>
+            <span id="timer-text" class="stat-value neon-pink-text">01:30</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Tiến Độ</span>
+            <span id="score-text" class="stat-value neon-green-text">0/24</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Trộn Bài</span>
+            <span id="shuffle-text" class="stat-value neon-yellow-text">3 lượt</span>
+        </div>
+    </div>
+
+    <!-- Dynamic Neon Timer Bar -->
+    <div class="timer-bar-container">
+        <div id="timer-bar" class="timer-bar"></div>
+    </div>
+
+    <!-- Main Game Board -->
+    <div id="game-board"></div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="btn-group">
+            <button class="action-btn" onclick="initGame()">Chơi Lại</button>
+            <button id="shuffle-btn" class="action-btn secondary" onclick="shuffleBoard()">Trộn Bài</button>
+        </div>
+        <p class="instructions-text" id="instructions-desc">Luật: Chọn 2 hình giống nhau để xóa bỏ! Ở chế độ Dễ, các thẻ bài luôn mở.</p>
+    </div>
+
+    <!-- Modern Glassmorphic Modals -->
+    <div id="game-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="modal-title">THẮNG CUỘC! 🏆</h2>
+            <p id="modal-message" class="modal-message">Chúc mừng bạn đã hoàn thành màn chơi!</p>
+            <div class="modal-stats">
+                <div class="modal-stat">
+                    <span>Độ khó:</span>
+                    <span id="modal-diff" class="neon-blue-text">-</span>
+                </div>
+                <div class="modal-stat">
+                    <span>Thời gian còn lại:</span>
+                    <span id="modal-time" class="neon-pink-text">-</span>
+                </div>
+            </div>
+            <button onclick="closeModalAndRestart()" class="modal-btn">Chơi Tiếp</button>
+        </div>
+    </div>
+
+    <script>
+        // Game Configuration
+        const symbols = ['🐱', '🦊', '🐷', '🐸', '🐨', '🐙', '🦖', '🦄', '🐝', '🦋', '🦀', '🐬'];
+        const boardSize = 48; // 6 rows x 8 cols
+        
+        // Game State Variables
+        let currentDifficulty = 'easy';
+        let gridState = []; // 2D array representation of board (6x8)
+        let selectedCards = [];
+        let timeLeft = 0;
+        let totalTime = 0;
+        let timerInterval = null;
+        let shufflesLeft = 3;
+        
+        const board = document.getElementById('game-board');
+
+        // Web Audio Synthesizer for Arcade Retro Sound Effects
+        let audioCtx = null;
+        function playSound(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const now = audioCtx.currentTime;
+                
+                if (type === 'flip') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(480, now + 0.07);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.07);
+                    osc.start(now);
+                    osc.stop(now + 0.07);
+                } else if (type === 'match') {
+                    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5 - E5 - G5 - C6 chime
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+                        gain.gain.setValueAtTime(0.08, now + idx * 0.06);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.06 + 0.18);
+                        osc.start(now + idx * 0.06);
+                        osc.stop(now + idx * 0.06 + 0.18);
+                    });
+                } else if (type === 'mismatch') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.linearRampToValueAtTime(110, now + 0.22);
+                    gain.gain.setValueAtTime(0.07, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.22);
+                    osc.start(now);
+                    osc.stop(now + 0.22);
+                } else if (type === 'win') {
+                    // Ascending major arpeggio explosion
+                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50, 1318.51];
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+                        gain.gain.setValueAtTime(0.08, now + idx * 0.07);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.07 + 0.35);
+                        osc.start(now + idx * 0.07);
+                        osc.stop(now + idx * 0.07 + 0.35);
+                    });
+                } else if (type === 'lose') {
+                    const notes = [380, 320, 260, 200, 140];
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+                        gain.gain.setValueAtTime(0.1, now + idx * 0.1);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.1 + 0.3);
+                        osc.start(now + idx * 0.1);
+                        osc.stop(now + idx * 0.1 + 0.3);
+                    });
+                } else if (type === 'shuffle') {
+                    for (let i = 0; i < 6; i++) {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(250 + i * 120, now + i * 0.04);
+                        gain.gain.setValueAtTime(0.04, now + i * 0.04);
+                        gain.gain.linearRampToValueAtTime(0.001, now + i * 0.04 + 0.08);
+                        osc.start(now + i * 0.04);
+                        osc.stop(now + i * 0.04 + 0.08);
+                    }
+                } else if (type === 'tick') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1000, now);
+                    gain.gain.setValueAtTime(0.015, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.015);
+                    osc.start(now);
+                    osc.stop(now + 0.015);
+                } else if (type === 'penalty') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.linearRampToValueAtTime(90, now + 0.15);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                }
+            } catch (e) {
+                console.warn("Audio Context error:", e);
+            }
+        }
+
+        // Initialize Game Board and configurations
+        function initGame() {
+            clearInterval(timerInterval);
+            
+            // Set time parameters according to difficulty
+            if (currentDifficulty === 'easy') {
+                totalTime = 90;
+                document.getElementById('instructions-desc').innerText = 'Luật: Chọn 2 hình giống nhau để xóa bỏ! Ở chế độ Dễ, các thẻ bài luôn mở.';
+                board.classList.remove('hard-mode', 'medium-mode');
+            } else if (currentDifficulty === 'medium') {
+                totalTime = 60;
+                document.getElementById('instructions-desc').innerText = 'Luật: Các thẻ bài được úp. Click để mở thẻ và tìm các cặp giống nhau!';
+                board.classList.remove('hard-mode');
+                board.classList.add('medium-mode');
+            } else if (currentDifficulty === 'hard') {
+                totalTime = 45;
+                document.getElementById('instructions-desc').innerText = 'Thử Thách: Các thẻ úp. Mỗi lần chọn sai trừ 3s. Sau mỗi cặp khớp, thẻ bài sẽ rơi xuống lấp khoảng trống!';
+                board.classList.remove('medium-mode');
+                board.classList.add('hard-mode');
+            }
+            
+            timeLeft = totalTime;
+            shufflesLeft = 3;
+            selectedCards = [];
+            
+            // Enable shuffling controls
+            document.getElementById('shuffle-text').innerText = `${shufflesLeft} lượt`;
+            document.getElementById('shuffle-btn').disabled = false;
+            board.style.pointerEvents = 'auto';
+            
+            // Generate symbol layout
+            let gameData = [];
+            for (let i = 0; i < boardSize / 2; i++) {
+                let symbol = symbols[i % symbols.length];
+                gameData.push(symbol, symbol);
+            }
+            // Shuffle
+            gameData.sort(() => Math.random() - 0.5);
+            
+            // Construct 2D array representation
+            gridState = [];
+            let index = 0;
+            for (let r = 0; r < 6; r++) {
+                const row = [];
+                for (let c = 0; c < 8; c++) {
+                    row.push({
+                        id: `card-${r}-${c}-${Math.random().toString(36).substr(2, 9)}`,
+                        symbol: gameData[index++],
+                        hidden: false,
+                        selected: false
+                    });
+                }
+                gridState.push(row);
+            }
+            
+            // Render board, stats, and start timer
+            renderBoard();
+            updateScore();
+            updateTimerDisplay();
+            startTimer();
+        }
+
+        // Render card layout based on gridState 2D array
+        function renderBoard() {
+            board.innerHTML = '';
+            for (let r = 0; r < 6; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const cardData = gridState[r][c];
+                    if (!cardData || cardData.hidden) {
+                        // Render spacer to keep layout aligned
+                        const spacer = document.createElement('div');
+                        spacer.className = 'card-spacer';
+                        board.appendChild(spacer);
+                    } else {
+                        const cardEl = createCardDOM(cardData, r, c);
+                        board.appendChild(cardEl);
+                    }
+                }
+            }
+        }
+
+        // Generate DOM for an active card
+        function createCardDOM(cardData, r, c) {
+            const container = document.createElement('div');
+            container.className = 'card-container';
+            if (currentDifficulty === 'easy') {
+                container.classList.add('easy-mode');
+            }
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // easy-mode is always in flipped (revealed) state
+            if (currentDifficulty === 'easy' || cardData.selected) {
+                card.classList.add('flipped');
+            }
+            if (cardData.selected) {
+                card.classList.add('selected');
+            }
+            
+            const front = document.createElement('div');
+            front.className = 'card-front';
+            front.innerText = '?';
+            
+            const back = document.createElement('div');
+            back.className = 'card-back';
+            back.innerText = cardData.symbol;
+            
+            card.appendChild(front);
+            card.appendChild(back);
+            container.appendChild(card);
+            
+            container.onclick = () => handleCardClick(container, r, c);
+            
+            return container;
+        }
+
+        // Handle card click selections
+        function handleCardClick(cardContainer, r, c) {
+            const cardData = gridState[r][c];
+            if (!cardData || cardData.hidden || selectedCards.some(s => s.r === r && s.c === c)) return;
+            
+            playSound('flip');
+            
+            // Add card to selections
+            cardData.selected = true;
+            selectedCards.push({ r, c, data: cardData, el: cardContainer });
+            
+            // Trigger local CSS transforms instantly
+            const cardEl = cardContainer.querySelector('.card');
+            cardEl.classList.add('flipped');
+            cardEl.classList.add('selected');
+            
+            if (selectedCards.length === 2) {
+                checkMatch();
+            }
+        }
+
+        // Core match-checking logic
+        function checkMatch() {
+            const [choice1, choice2] = selectedCards;
+            board.style.pointerEvents = 'none'; // Lock board during processing
+            
+            if (choice1.data.symbol === choice2.data.symbol) {
+                // Successful Match
+                setTimeout(() => {
+                    playSound('match');
+                    choice1.el.querySelector('.card').classList.add('matched-animation');
+                    choice2.el.querySelector('.card').classList.add('matched-animation');
+                    
+                    setTimeout(() => {
+                        choice1.data.hidden = true;
+                        choice2.data.hidden = true;
+                        
+                        // Apply gravity cascading logic for Hard mode
+                        if (currentDifficulty === 'hard') {
+                            applyGravity();
+                        }
+                        
+                        selectedCards = [];
+                        board.style.pointerEvents = 'auto';
+                        
+                        updateScore();
+                        renderBoard();
+                        checkWin();
+                    }, 300);
+                }, 200);
+            } else {
+                // Mismatch
+                if (currentDifficulty === 'hard') {
+                    applyTimePenalty(3);
+                } else {
+                    playSound('mismatch');
+                }
+                
+                setTimeout(() => {
+                    choice1.data.selected = false;
+                    choice2.data.selected = false;
+                    
+                    const cardEl1 = choice1.el.querySelector('.card');
+                    const cardEl2 = choice2.el.querySelector('.card');
+                    
+                    cardEl1.classList.remove('selected');
+                    cardEl2.classList.remove('selected');
+                    
+                    if (currentDifficulty !== 'easy') {
+                        cardEl1.classList.remove('flipped');
+                        cardEl2.classList.remove('flipped');
+                    }
+                    
+                    selectedCards = [];
+                    board.style.pointerEvents = 'auto';
+                }, 600);
+            }
+        }
+
+        // Gravity compactor for Hard difficulty: remaining cards fall down
+        function applyGravity() {
+            for (let c = 0; c < 8; c++) {
+                // Collect remaining active cards from top to bottom
+                const columnCards = [];
+                for (let r = 0; r < 6; r++) {
+                    if (gridState[r][c] && !gridState[r][c].hidden) {
+                        columnCards.push(gridState[r][c]);
+                    }
+                }
+                
+                const emptySlotsCount = 6 - columnCards.length;
+                
+                // Reconstruct column: empty spaces move to the top
+                for (let r = 0; r < 6; r++) {
+                    if (r < emptySlotsCount) {
+                        gridState[r][c] = null;
+                    } else {
+                        gridState[r][c] = columnCards[r - emptySlotsCount];
+                    }
+                }
+            }
+        }
+
+        // Shuffle remaining active cards when stuck
+        function shuffleBoard() {
+            if (shufflesLeft <= 0) return;
+            
+            playSound('shuffle');
+            
+            // Gather all active non-hidden cards
+            const activeCards = [];
+            for (let r = 0; r < 6; r++) {
+                for (let c = 0; c < 8; c++) {
+                    if (gridState[r][c] && !gridState[r][c].hidden) {
+                        activeCards.push(gridState[r][c]);
+                    }
+                }
+            }
+            
+            if (activeCards.length === 0) return;
+            
+            // Scramble active card symbols
+            const activeSymbols = activeCards.map(c => c.symbol);
+            activeSymbols.sort(() => Math.random() - 0.5);
+            
+            activeCards.forEach((card, idx) => {
+                card.symbol = activeSymbols[idx];
+                card.selected = false;
+            });
+            
+            selectedCards = [];
+            shufflesLeft--;
+            
+            document.getElementById('shuffle-text').innerText = `${shufflesLeft} lượt`;
+            if (shufflesLeft <= 0) {
+                document.getElementById('shuffle-btn').disabled = true;
+            }
+            
+            renderBoard();
+        }
+
+        // Timer control systems
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                
+                // Sound cue for final moments
+                if (timeLeft <= 10 && timeLeft > 0) {
+                    playSound('tick');
+                }
+                
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    gameOver();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const displayTime = Math.max(0, timeLeft);
+            const minutes = Math.floor(displayTime / 60);
+            const seconds = displayTime % 60;
+            const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            const textEl = document.getElementById('timer-text');
+            textEl.innerText = formatted;
+            
+            const barEl = document.getElementById('timer-bar');
+            const percentage = (displayTime / totalTime) * 100;
+            barEl.style.width = `${percentage}%`;
+            
+            // Urgent styling if time is under 25%
+            if (percentage <= 25) {
+                barEl.classList.add('warning');
+                textEl.classList.add('warning-text');
+            } else {
+                barEl.classList.remove('warning');
+                textEl.classList.remove('warning-text');
+            }
+        }
+
+        // Subtract time in Hard Mode when errors are made
+        function applyTimePenalty(seconds) {
+            playSound('penalty');
+            timeLeft = Math.max(0, timeLeft - seconds);
+            updateTimerDisplay();
+            
+            // Visual red flash on timer bar
+            const barEl = document.getElementById('timer-bar');
+            barEl.classList.add('flash-penalty');
+            setTimeout(() => {
+                barEl.classList.remove('flash-penalty');
+            }, 150);
+        }
+
+        // Keep match metrics updated
+        function updateScore() {
+            let clearedCount = 0;
+            for (let r = 0; r < 6; r++) {
+                for (let c = 0; c < 8; c++) {
+                    if (!gridState[r][c] || gridState[r][c].hidden) {
+                        clearedCount++;
+                    }
+                }
+            }
+            const pairsCleared = clearedCount / 2;
+            document.getElementById('score-text').innerText = `${pairsCleared}/24`;
+        }
+
+        // Change difficulties from selector
+        function changeDifficulty(mode) {
+            if (currentDifficulty === mode) return;
+            currentDifficulty = mode;
+            
+            // Tab highlight switching
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase() === 'dễ' && mode === 'easy') btn.classList.add('active');
+                if (btn.innerText.toLowerCase() === 'trung bình' && mode === 'medium') btn.classList.add('active');
+                if (btn.innerText.toLowerCase() === 'khó' && mode === 'hard') btn.classList.add('active');
+            });
+            
+            const label = document.getElementById('diff-label');
+            label.className = 'stat-value';
+            
+            if (mode === 'easy') {
+                label.innerText = 'Dễ';
+                label.classList.add('neon-blue-text');
+            } else if (mode === 'medium') {
+                label.innerText = 'T.Bình';
+                label.classList.add('neon-yellow-text');
+            } else if (mode === 'hard') {
+                label.innerText = 'Khó';
+                label.classList.add('neon-pink-text');
+            }
+            
+            initGame();
+        }
+
+        // Victory checking
+        function checkWin() {
+            let hiddenCount = 0;
+            for (let r = 0; r < 6; r++) {
+                for (let c = 0; c < 8; c++) {
+                    if (!gridState[r][c] || gridState[r][c].hidden) {
+                        hiddenCount++;
+                    }
+                }
+            }
+            
+            if (hiddenCount === boardSize) {
+                clearInterval(timerInterval);
+                playSound('win');
+                showModal(true);
+            }
+        }
+
+        function gameOver() {
+            clearInterval(timerInterval);
+            board.style.pointerEvents = 'none';
+            playSound('lose');
+            showModal(false);
+        }
+
+        // Modal Display Systems
+        function showModal(isWin) {
+            const modal = document.getElementById('game-modal');
+            const content = modal.querySelector('.modal-content');
+            const title = document.getElementById('modal-title');
+            const message = document.getElementById('modal-message');
+            const diffEl = document.getElementById('modal-diff');
+            const timeEl = document.getElementById('modal-time');
+            
+            content.className = 'modal-content ' + (isWin ? 'win' : 'lose');
+            
+            if (isWin) {
+                title.innerText = 'THẮNG CUỘC! 🏆';
+                message.innerText = 'Tuyệt vời Ngọc Mai ơi! Bạn đã xuất sắc chinh phục thử thách này!';
+                timeEl.innerText = `${timeLeft} giây`;
+            } else {
+                title.innerText = 'HẾT GIỜ! ⏰';
+                message.innerText = 'Tiếc quá Mai ơi! Bạn đã hết thời gian rồi. Hãy thử lại để đạt kết quả tốt hơn!';
+                timeEl.innerText = '0 giây';
+            }
+            
+            const diffMap = {
+                'easy': 'Dễ',
+                'medium': 'Trung Bình',
+                'hard': 'Khó (Trọng Lực + Trừ Giây)'
+            };
+            diffEl.innerText = diffMap[currentDifficulty];
+            
+            modal.classList.add('show');
+        }
+
+        function closeModalAndRestart() {
+            const modal = document.getElementById('game-modal');
+            modal.classList.remove('show');
+            initGame();
+        }
+
+        // Start game on load
+        initGame();
+    </script>
+</body>
+
+</html>
